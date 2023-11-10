@@ -1,6 +1,6 @@
 const { Model, DataTypes } = require('sequelize')
 
-const TABLE_NAME = 'users'
+const TABLE_NAME = 'events'
 
 const UserSchema = {
     id: {
@@ -10,35 +10,33 @@ const UserSchema = {
     },
     name: {
         type: DataTypes.STRING,
+        allowNull: true
+    },
+    init_date: {
+        type: DataTypes.DATE,
+        allowNull: true
+    },
+    end_date: {
+        type: DataTypes.DATE,
         allowNull: false
     },
-    email: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        unique: true
+    init_hour: {
+        type: DataTypes.TIME,
+        allowNull: true
     },
-    password: {
+    end_hour: {
+        type: DataTypes.TIME,
+        allowNull: false
+    },
+    place:{
         type: DataTypes.STRING,
         allowNull: false
-
-    },
-    status: {
-        type: DataTypes.BOOLEAN,
-        defaultValue: false
-    },
-    area_id:{
-        field:'area_id',
-        type:DataTypes.INTEGER,
-        references:{
-            model:'areas',
-            key:'id'
-        }
     }
 }
 
 class User extends Model {
     static associate(models) {
-        this.belongsTo(models.Areas,{as:'areas',foreignKey:'area_id'})
+        
     }
     static config(sequelize) {
         return { sequelize, tableName: TABLE_NAME, modelName: 'User', timestamps: false }
