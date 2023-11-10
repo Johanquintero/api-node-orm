@@ -1,5 +1,5 @@
 'use strict';
-const { TABLE_NAME } = require('../models/user.model')
+const { TABLE_NAME } = require('../models/user_events.model')
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {

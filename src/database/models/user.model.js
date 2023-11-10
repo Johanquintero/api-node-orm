@@ -39,6 +39,7 @@ const UserSchema = {
 class User extends Model {
     static associate(models) {
         this.belongsTo(models.Areas,{as:'areas',foreignKey:'area_id'})
+        this.hasMany(models.UserEvents,{as:"user_events",foreignKey:'user_id'})
     }
     static config(sequelize) {
         return { sequelize, tableName: TABLE_NAME, modelName: 'User', timestamps: false }

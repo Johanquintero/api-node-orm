@@ -2,7 +2,7 @@ const { Model, DataTypes } = require('sequelize')
 
 const TABLE_NAME = 'events'
 
-const UserSchema = {
+const EventSchema = {
     id: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
@@ -36,11 +36,11 @@ const UserSchema = {
 
 class User extends Model {
     static associate(models) {
-        
+        this.hasMany(models.UserEvents,{as:"user_events",foreignKey:'event_id'})
     }
     static config(sequelize) {
-        return { sequelize, tableName: TABLE_NAME, modelName: 'User', timestamps: false }
+        return { sequelize, tableName: TABLE_NAME, modelName: 'Events', timestamps: false }
     }
 }
 
-module.exports = { TABLE_NAME, UserSchema, User }
+module.exports = { TABLE_NAME, EventSchema, User }
