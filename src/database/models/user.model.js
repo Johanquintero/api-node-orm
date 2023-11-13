@@ -24,7 +24,7 @@ const UserSchema = {
     },
     status: {
         type: DataTypes.BOOLEAN,
-        defaultValue: false
+        defaultValue: true
     },
     area_id:{
         field:'area_id',

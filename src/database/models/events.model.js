@@ -10,31 +10,36 @@ const EventSchema = {
     },
     name: {
         type: DataTypes.STRING,
-        allowNull: true
+        allowNull: false
     },
     init_date: {
         type: DataTypes.DATE,
-        allowNull: true
+        allowNull: false
     },
     end_date: {
         type: DataTypes.DATE,
-        allowNull: false
+        allowNull: true
     },
     init_hour: {
         type: DataTypes.TIME,
-        allowNull: true
+        allowNull: false
     },
     end_hour: {
         type: DataTypes.TIME,
-        allowNull: false
+        allowNull: true
     },
     place:{
         type: DataTypes.STRING,
-        allowNull: false
-    }
+        allowNull: true
+    },
+    status: {
+        type: DataTypes.BOOLEAN,
+        allowNull: true,
+        defaultValue: true
+    },
 }
 
-class User extends Model {
+class Events extends Model {
     static associate(models) {
         this.hasMany(models.UserEvents,{as:"user_events",foreignKey:'event_id'})
     }
@@ -43,4 +48,4 @@ class User extends Model {
     }
 }
 
-module.exports = { TABLE_NAME, EventSchema, User }
+module.exports = { TABLE_NAME, EventSchema, Events }

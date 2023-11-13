@@ -8,32 +8,35 @@ const UserEventsSchema = {
         autoIncrement: true,
         primaryKey: true
     },
-    user_id:{
-        field:'user_id',
-        type:DataTypes.INTEGER,
-        references:{
-            model:'users',
-            key:'id'
+    user_id: {
+        field: 'user_id',
+        type: DataTypes.INTEGER,
+        references: {
+            model: 'users',
+            key: 'id'
         }
     },
-    area_id:{
-        field:'area_id',
-        type:DataTypes.INTEGER,
-        references:{
-            model:'areas',
-            key:'id'
+    event_id: {
+        field: 'event_id',
+        type: DataTypes.INTEGER,
+        references: {
+            model: 'events',
+            key: 'id'
         }
-    }
+    }, status: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: true
+    },
 }
 
-class User extends Model {
+class UserEvents extends Model {
     static associate(models) {
-        this.belongsTo(models.User,{as:'users',foreignKey:'user_id'})
-        this.belongsTo(models.Areas,{as:'areas',foreignKey:'area_id'})
+        this.belongsTo(models.User, { as: 'users', foreignKey: 'user_id' })
+        this.belongsTo(models.Events, { as: 'events', foreignKey: 'event_id' })
     }
     static config(sequelize) {
         return { sequelize, tableName: TABLE_NAME, modelName: 'UserEvents', timestamps: false }
     }
 }
 
-module.exports = { TABLE_NAME, UserEventsSchema, User }
+module.exports = { TABLE_NAME, UserEventsSchema, UserEvents }

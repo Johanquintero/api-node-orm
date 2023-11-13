@@ -1,6 +1,6 @@
 'use strict';
 const { DataTypes } = require('sequelize')
-const { TABLE_NAME } = require('./../models/user_events.model')
+const { TABLE_NAME } = require('../models/user_events.model')
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
