@@ -11,21 +11,25 @@ class UserController {
         return users
     }
 
-    async create(name, email, password, status,area_id,area) {
-        const user = await this.service.create(name, email, password, status,area_id,area)
+    async create(name, email, password, status, area_id, area) {
+        const user = await this.service.create(name, email, password, status, area_id, area)
 
         return user
     }
 
     async findOne(id) {
-        const user = await this.service.findOne(id)
+        try {
+            const user = await this.service.findOne(id)
 
-        if (!user) {
-            throw new Error("Usuario no encontrado")
+            if (!user) {
+                return { message: "Usuario no encontrado", status: false }
+            }
+            delete user.dataValues.password
+
+            return { user, status: true }
+        } catch (error) {
+            return { message: error.message, status: false }
         }
-        delete user.dataValues.password
-
-        return user
     }
 
     async update(id, values) {
@@ -36,8 +40,8 @@ class UserController {
         return user
     }
 
-    async delete(id,values) {
-        const user = await this.service.delete(id,values)
+    async delete(id, values) {
+        const user = await this.service.delete(id, values)
 
         if (!user) {
             throw new Error("Usuario no encontrado")

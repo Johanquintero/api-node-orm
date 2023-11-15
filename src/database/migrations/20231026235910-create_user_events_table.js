@@ -7,7 +7,7 @@ module.exports = {
     await queryInterface.createTable(TABLE_NAME, {
       id: {
         type: Sequelize.DataTypes.INTEGER,
-        autoincrement: true,
+        autoIncrement: true,
         primaryKey: true
       },
       user_id: {
@@ -23,7 +23,11 @@ module.exports = {
           model: 'events',
           key: 'id'
         }
-      }
+      },
+      status: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: true
+      },
 
     })
   },

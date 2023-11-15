@@ -13,19 +13,23 @@ class EventService {
     }
 
     async create(name, init_date, end_date, init_hour, end_hour, place, status) {
+        try {
+            console.log("SERVICES")
+            console.log(name, init_date, end_date, init_hour, end_hour, place, status)
 
-        console.log("SERVICES")
-        console.log(name, init_date, end_date, init_hour, end_hour, place, status)
+            if (!name, !init_date, !init_hour) {
+                throw new Error("Los campos nombre feha y hora de inicio son requeridos.")
+            }
 
-        if (!name, !init_date, !init_hour) {
-            throw new Error("Los campos nombre feha y hora de inicio son requeridos.")
+            const values = { name, init_date, end_date, init_hour, end_hour, place, status }
+
+            const event = await this.model.create(values)
+
+            return event;
+        } catch (error) {
+            console.log("ERRRO CREAT EVENT",error)
+            return {message:"ERROR"}
         }
-
-        const values = { name, init_date, end_date, init_hour, end_hour, place,status}
-
-        const event = await this.model.create(values)
-
-        return event;
     }
 
     async findOne(id) {

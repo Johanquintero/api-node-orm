@@ -1,4 +1,4 @@
-const UserEventService = require('../services/user_event.service')
+const UserEventService = require('../services/user_events.service')
 
 class UserEventController {
     constructor() {
@@ -6,9 +6,9 @@ class UserEventController {
     }
 
     async index() {
-        const users = await this.service.getAll()
+        const userEvents = await this.service.getAll()
 
-        return users
+        return userEvents
     }
 
     async create(status, event_id, event, user_id, user) {

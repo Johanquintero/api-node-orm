@@ -18,12 +18,13 @@ class EventController {
 
     async findOne(id) {
         const event = await this.service.findOne(id)
-
+        console.log("EVENT**************************************")
         if (!event) {
-            throw new Error("Evento no encontrado")
+            console.log(event)
+            return { "message": "Evento no encontrado", "status": false }
         }
 
-        return event
+        return { event, "status": true }
     }
 
     async update(id, values) {
@@ -34,8 +35,8 @@ class EventController {
         return event
     }
 
-    async delete(id,values) {
-        const event = await this.service.delete(id,values)
+    async delete(id, values) {
+        const event = await this.service.delete(id, values)
 
         if (!event) {
             throw new Error("Evento no encontrado")

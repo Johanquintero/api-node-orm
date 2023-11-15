@@ -21,6 +21,7 @@ class UserService {
         if (area_id && areas) {
             throw new Error("You cand provide area_id and area on same time")
         }
+     
         const values = { name, email, password, status }
 
         if (area_id) values.area_id = area_id

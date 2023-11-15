@@ -1,28 +1,29 @@
 const { Router } = require('express')
-const UserEventController = require('../controllers/user_event.controller')
+const AreaController = require('../controllers/area.controller')
 
 const router = Router()
 
-const controller = new UserEventController()
+const controller = new AreaController()
 
 router.get('/', async (req, res) => {
-    const users = await controller.index()
+    const areas = await controller.index()
 
-    res.json({ users })
+    res.json({ areas })
 })
 
 router.post('/', async (req, res) => {
-    const { status, event_id, event, user_id, user } = req.body
-    const userEvent = await controller.create(status, event_id, event, user_id, user)
+    const { name, code, observations, status } = req.body
 
-    res.status(201).json({ userEvent })
+    const area = await controller.create(name, code, observations, status)
+
+    res.status(201).json({ area })
 })
 
 router.get('/:id', async (req, res) => {
     try {
         const { id } = req.params
-        const userEvent = await controller.findOne(id)
-        res.status(200).json({ userEvent })
+        const area = await controller.findOne(id)
+        res.status(200).json({ area })
     } catch (error) {
         res.status(404).json({ message: error.message })
     }
@@ -30,15 +31,16 @@ router.get('/:id', async (req, res) => {
 
 router.put('/:id', async (req, res) => {
     const { id } = req.params
-    const { status = "", event_id = "", user_id = ""  } = req.body
+    const { name = "", code = "",observations = "", status = ""  } = req.body
     const values = {}
-    if (status) values.status = status;
-    if (event_id) values.event_id = event_id;
-    if (user_id) values.user_id = user_id;
+    if (name) values.name = name
+    if (code) values.code = code
+    if (observations) values.observations = observations
+    if (status) values.status = status
 
     try {
-        const userEvent = await controller.update(id, values)
-        res.status(200).json({ userEvent })
+        const area = await controller.update(id, values)
+        res.status(200).json({ area })
     } catch (error) {
         res.status(404).json({ message: error.message })
     }

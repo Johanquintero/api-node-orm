@@ -5,7 +5,7 @@ const TABLE_NAME = 'areas'
 const AreasSchema = {
     id: {
         type: DataTypes.INTEGER,
-        autoincrement: true,
+        autoIncrement: true,
         primaryKey: true
     },
     name: {
