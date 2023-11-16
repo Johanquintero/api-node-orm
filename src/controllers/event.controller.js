@@ -1,3 +1,4 @@
+const moment = require('moment/moment')
 const EventService = require('../services/event.service')
 
 class EventController {
@@ -5,22 +6,26 @@ class EventController {
         this.service = new EventService
     }
 
-    async index() {
-        const events = await this.service.getAll()
+    async index(question) {
+        const events = await this.service.getAll(question)
 
         return events
     }
 
     async create(name, init_date, end_date, init_hour, end_hour, place, status) {
+        let date = moment(init_date).format("YYYY-MM-DD");
+        let request = await this.index({ status: true, "init_date": date, init_hour })
+        if (request.length > 0) {
+            return { "message": "La fecha y hora del evento ya esta en uso", "status": false }
+        }
+
         const event = await this.service.create(name, init_date, end_date, init_hour, end_hour, place, status)
         return event
     }
 
     async findOne(id) {
         const event = await this.service.findOne(id)
-        console.log("EVENT**************************************")
         if (!event) {
-            console.log(event)
             return { "message": "Evento no encontrado", "status": false }
         }
 

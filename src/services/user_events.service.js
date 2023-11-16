@@ -1,6 +1,7 @@
 const { models } = require('../libs/sequelize')
 const UserController = require('../controllers/area.controller')
 const EventController = require('../controllers/event.controller')
+const { where } = require('sequelize')
 
 class UserService {
     constructor() {
@@ -10,7 +11,7 @@ class UserService {
     async getAll() {
         try {
             const users = await this.model.findAll({
-                include: ['events','users'],
+                include: ['events', 'users'],
                 where: { status: true }
             })
             return users;
@@ -44,11 +45,27 @@ class UserService {
         return user_event;
     }
 
-    async findOne(id) {
-        const user_event = await this.model.findByPk(id, {
-            include: ['events'],
-            include: ['users'],
-        })
+    async findAll(user_id, event_id) {
+        let user_event = ""
+        if (user_id && !event_id) {
+            user_event = await this.model.findAll({
+                include: [{as:'events',model:models.Events,where:{status:true}}, 'users'],
+                where: { user_id }
+            })
+        } else if (event_id && !user_id) {
+            user_event = await this.model.findAll({
+                include: [{as:'events',model:models.Events,where:{status:true}}, 'users'],
+                where: { event_id }
+            })
+        } else {
+            user_event = await this.model.findAll({
+                include: [{model:'events',where:{status:true}}, 'users'],
+                where: {
+                    user_id,
+                    event_id
+                }
+            })
+        }
         return user_event
     }
 

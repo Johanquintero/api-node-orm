@@ -17,8 +17,8 @@ class UserEventController {
         return userEvent
     }
 
-    async findOne(id) {
-        const userEvent = await this.service.findOne(id)
+    async findAll(user_id, event_id) {
+        const userEvent = await this.service.findAll(user_id, event_id)
 
         if (!userEvent) {
             throw new Error("No se encuentra el evento")

@@ -13,11 +13,11 @@ const EventSchema = {
         allowNull: false
     },
     init_date: {
-        type: DataTypes.DATE,
+        type: DataTypes.DATEONLY,
         allowNull: false
     },
     end_date: {
-        type: DataTypes.DATE,
+        type: DataTypes.DATEONLY,
         allowNull: true
     },
     init_hour: {

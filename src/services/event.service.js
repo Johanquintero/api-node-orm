@@ -5,18 +5,23 @@ class EventService {
         this.model = models.Events
     }
 
-    async getAll() {
-        const events = await this.model.findAll({
-            where: { status: true }
-        })
+    async getAll(question) {
+        let events = ''
+        if (!question) {
+            events = await this.model.findAll({
+                where: { status: true }
+            })
+        } else {
+            events = await this.model.findAll({
+                where: question
+            })
+        }
+
         return events;
     }
 
     async create(name, init_date, end_date, init_hour, end_hour, place, status) {
         try {
-            console.log("SERVICES")
-            console.log(name, init_date, end_date, init_hour, end_hour, place, status)
-
             if (!name, !init_date, !init_hour) {
                 throw new Error("Los campos nombre feha y hora de inicio son requeridos.")
             }
@@ -27,8 +32,7 @@ class EventService {
 
             return event;
         } catch (error) {
-            console.log("ERRRO CREAT EVENT",error)
-            return {message:"ERROR"}
+            return { message: "ERROR" }
         }
     }
 

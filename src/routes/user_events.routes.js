@@ -43,10 +43,11 @@ router.post('/', async (req, res) => {
     }
 })
 
-router.get('/:id', async (req, res) => {
+router.get('/list-by', async (req, res) => {
     try {
-        const { id } = req.params
-        const userEvent = await controller.findOne(id)
+        const { user_id, event_id } = req.query
+        if(!user_id && !event_id) throw new Error("Usuario o evento es requerido")
+        const userEvent = await controller.findAll(user_id, event_id)
         res.status(200).json({ userEvent })
     } catch (error) {
         res.status(404).json({ message: error.message })

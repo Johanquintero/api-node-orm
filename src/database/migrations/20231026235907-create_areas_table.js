@@ -30,7 +30,6 @@ module.exports = {
           defaultValue: true
         }
       })
-      console.log('Migración exitosa  Se crea areas');
     } catch (error) {
       console.error('Error en la migración de areas:', error);
     }

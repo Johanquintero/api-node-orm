@@ -13,9 +13,6 @@ router.get('/', async (req, res) => {
 
 router.post('/', async (req, res) => {
     const { name, init_date, end_date, init_hour, end_hour, place, status } = req.body
-
-    console.log( name, init_date, end_date, init_hour, end_hour, place, status)
-
     const event = await controller.create(name, init_date, end_date, init_hour, end_hour, place, status)
 
     res.status(201).json({ event })
