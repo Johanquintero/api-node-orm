@@ -28,7 +28,6 @@ module.exports = {
         type: DataTypes.BOOLEAN,
         defaultValue: true
       },
-
     })
   },
 

@@ -59,7 +59,7 @@ class UserService {
             })
         } else {
             user_event = await this.model.findAll({
-                include: [{model:'events',where:{status:true}}, 'users'],
+                include: [{as:'events',model:models.Events,where:{status:true}}, 'users'],
                 where: {
                     user_id,
                     event_id
