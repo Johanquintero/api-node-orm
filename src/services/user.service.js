@@ -43,6 +43,13 @@ class UserService {
         return user
     }
 
+    async findByEmail(email) {
+        const user = await this.model.findOne({
+            where: { email, status: true }
+        })
+        return user
+    }
+
     async update(id, values) {
         const user = await this.findOne(id)
         if (!user) return null

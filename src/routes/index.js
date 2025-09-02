@@ -1,4 +1,5 @@
 const {Router} = require('express')
+const authRouter = require('./auth.routes')
 const userRouter = require('./users.routes')
 const eventRouter = require('./events.routes')
 const userEventsRouter = require('./user_events.routes')

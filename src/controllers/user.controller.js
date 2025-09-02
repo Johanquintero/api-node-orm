@@ -32,6 +32,15 @@ class UserController {
         }
     }
 
+    async findByEmail(email) {
+        try {
+            const user = await this.service.findByEmail(email)
+            return user
+        } catch (error) {
+            return null
+        }
+    }
+
     async update(id, values) {
         const user = await this.service.update(id, values)
 
